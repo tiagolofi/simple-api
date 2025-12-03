@@ -5,8 +5,8 @@ from fastapi import APIRouter
 from typing import Dict
 from importlib import import_module
 
-from sapi.core.managers import Manager, Managers
-from sapi.core.models import Request, Response
+from managers import Manager, Managers
+from models import Request, Response
 
 class Router(APIRouter):
     def __init__(self, manager: Managers) -> None:

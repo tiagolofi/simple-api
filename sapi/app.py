@@ -1,10 +1,8 @@
 
 from fastapi import FastAPI
 
-from typing import overload
-
-from sapi.core.managers import Manager, Managers
-from sapi.core.router import Router
+from managers import Manager, Managers
+from router import Router
 
 class SimpleApi(FastAPI):
 
