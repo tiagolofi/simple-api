@@ -1,8 +1,8 @@
 
 from fastapi import FastAPI
 
-from managers import Manager, Managers
-from router import Router
+from sapi.core.managers import Manager, Managers
+from sapi.core.router import Router
 
 class SimpleApi(FastAPI):
 
