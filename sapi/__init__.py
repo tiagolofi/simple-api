@@ -1,2 +1,2 @@
 
-import sapi
+__all__ = ["core"]
