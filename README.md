@@ -50,11 +50,9 @@ def handler_fn(request: GreetingRequest) -> GreetingResponse:
 
 - `app.py`
 ```python
-from sapi.core import SimpleApi, Managers
+from sapi.core import SimpleApi
 
-yaml_manager = Managers.YAML # gerencia o arquivo, também disponível para .json
-
-app = SimpleApi(yaml_manager)
+app = SimpleApi()
 ```
 
 3. Execute: `uvicorn app:app --reload`

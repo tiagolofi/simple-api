@@ -10,7 +10,7 @@ setup(
     packages=find_packages(),
     python_requires=">=3.9",
     install_requires=[
-        "python-dotenv", "pytest", "fastapi", "uvicorn", "python-jose", "passlib[bcrypt]", "PyYAML"
+        "python-dotenv", "pytest", "fastapi", "uvicorn", "python-jose", "passlib[bcrypt]", "PyYAML", "datetime"
     ],
     extras_require={
     },
