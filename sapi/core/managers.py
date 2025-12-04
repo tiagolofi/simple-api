@@ -8,31 +8,18 @@ from dotenv import load_dotenv
 from os import listdir, getenv
 
 class Manager(Protocol):
-    def __init__(self) -> None:
-        if '.env' in listdir():
-            load_dotenv(override=True)
-        self.filename = getenv('config.filename', '')
-        self.extension = self.filename.split('.', 1)
-        self.configs_field = 'configs'
-        self.auth_field = 'auth'
+    def __init__(self, filename: str) -> None:
+        self.filename = filename
         self.routes_field = 'routes'
-
-    @abstractmethod
-    def configs(self) -> Dict|List|Any:
-        ...
-
-    @abstractmethod
-    def auth(self) -> Dict|List|Any:
-        ...
 
     @abstractmethod
     def routes(self) -> List:
         ...
 
 class ManagerYaml(Manager):
-    def __init__(self) -> None:
-        super().__init__()
-        self.__configs = yaml.safe_load(open(self.filename + '.yaml', 'r'))
+    def __init__(self, filename: str) -> None:
+        super().__init__(filename=filename)
+        self.__configs = yaml.safe_load(open(self.filename, 'r'))
     
     def routes(self):
         return self.__configs.get(self.routes_field, [])
@@ -46,26 +33,25 @@ class ManagerConf(Manager):
 class ManagerToml(Manager):
     ...
 
-class Managers(Enum):
-    YAML = ManagerYaml()
-    JSON = ManagerJson()
-    CONF = ManagerConf()
-    TOML = ManagerToml()
-
-
 class ManagerFactory:
-    def __init__(self, manager: Manager):
-        self.manager = manager
+    def __init__(self):
+        self.filename = ''
+        self.extension = ''
+        if '.env' in listdir():
+            load_dotenv(override=True)
+            self.filename = getenv('config.filename', '')
+            self.extension = self.filename.split('.', 1)[1]
 
-    def create(self) -> Managers:
-        match self.manager.extension:
+    def create(self) -> Manager:
+        match self.extension:
             case 'yaml': 
-                return Managers.YAML
+                return ManagerYaml(self.filename)
             case 'json':
-                return Managers.JSON
+                return ManagerJson(self.filename)
             case 'conf':
-                return Managers.CONF
+                return ManagerConf(self.filename)
             case 'toml':
-                return Managers.TOML
+                return ManagerToml(self.filename)
             case _:
-                raise TypeError('file extension invalid!')
+                raise TypeError('invalid file extension!')
+            

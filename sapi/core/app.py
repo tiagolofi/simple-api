@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI
 
-from sapi.core.managers import Manager, ManagerFactory
+from sapi.core.managers import ManagerFactory
 from sapi.core.router import Router
 
 class SimpleApi(FastAPI):
@@ -15,4 +15,4 @@ class SimpleApi(FastAPI):
     def __set_api_router(self) -> Router:
         manager_factory = ManagerFactory()
         manager = manager_factory.create()
-        return Router(manager=manager.value)
+        return Router(manager)

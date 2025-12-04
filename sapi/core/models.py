@@ -2,8 +2,8 @@
 import uuid
 from pydantic import BaseModel
 
-class Request(BaseModel):
+class SimpleRequest(BaseModel):
     id: uuid.UUID
 
-class Response(BaseModel):
+class SimpleResponse(BaseModel):
     id: uuid.UUID

@@ -2,16 +2,13 @@
 import uuid
 
 from fastapi import APIRouter
-from typing import Dict
+from typing import Dict, Tuple
 from importlib import import_module
 
-from sapi.core.managers import Manager, Managers
-from sapi.core.models import Request, Response
+from sapi.core.managers import Manager
+from sapi.core.models import SimpleRequest, SimpleResponse
 
 class Router(APIRouter):
-    def __init__(self, manager: Managers) -> None:
-        self.__init__(manager=manager.value)
-
     def __init__(self, manager: Manager) -> None:
         super().__init__()
         self.manager = manager
@@ -28,7 +25,7 @@ class Router(APIRouter):
                 response_model=response,
             )
 
-    def __load(self, route: Dict) -> tuple:
+    def __load(self, route: Dict) -> Tuple:
         class_name_req = route.get('request')
         class_name_res = route.get('response')
         handler_name = route.get('handler')

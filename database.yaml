@@ -1,0 +1,8 @@
+
+users:
+  - username: admin
+    password: "1234"
+    groups: ["admin"]
+  - username: user
+    password: "4321"
+    groups: ["user"]
